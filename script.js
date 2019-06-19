@@ -1,6 +1,7 @@
 const search = () => {
   const term = document.getElementById("term").value;
-  const url = "https://itunes.apple.com/search?entity=podcast&term=" + term;
+  const url =
+    "https://itunes.apple.com/search?entity=podcast&limit=9&term=" + term;
   fetch(url)
     .then(function(response) {
       return response.json();
