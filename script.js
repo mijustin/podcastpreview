@@ -41,3 +41,23 @@ const displayResults = data => {
 // attach event handlers and make function call:
 document.getElementById("search").onclick = search;
 search();
+
+// upload your own cover art:
+
+function previewFile() {
+  var preview = document.querySelector("img");
+  var file = document.querySelector("input[type=file]").files[0];
+  var reader = new FileReader();
+
+  reader.addEventListener(
+    "load",
+    function() {
+      preview.src = reader.result;
+    },
+    false
+  );
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+}

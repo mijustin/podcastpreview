@@ -9,11 +9,11 @@
   <body>
     <h1>What will your podcast look like in Apple Podcasts?</h1>
     <h2>Upload your cover art</h2>
-    <input id="term" value="Your podcast's name" /><button id="submit">
-      Submit
-    </button>
+    <input type="file" onchange="previewFile()" />
+
     <h2>Enter your podcast's topic here</h2>
-    <input id="term" value="podcast" /><button id="search">Search</button>
+    <input id="term" value="SaaS" /><button id="search">Search</button>
+    <img src="" height="200" alt="Image preview..." />
     <div id="output"></div>
 
     <script src="script.js"></script>
