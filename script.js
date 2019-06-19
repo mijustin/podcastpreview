@@ -14,8 +14,41 @@ const displayResults = data => {
   // output data to the console:
   console.log(data);
   document.getElementById("output").innerHTML = "";
-  data.results.forEach(item => {
-    // a 'lil hack to get higher quality album covers
+  data.results.forEach(item => addItem(item));
+};
+
+// attach event handlers and make function call:
+document.getElementById("search").onclick = search;
+search();
+
+// upload your own cover art:
+
+function previewFile() {
+  var preview = document.querySelector("img");
+  var file = document.querySelector("input[type=file]").files[0];
+  var reader = new FileReader();
+
+  reader.addEventListener(
+    "load",
+    () => {
+      addItem({
+        albumCover: reader.result,
+        artworkUrl100:  reader.result,
+        trackName: "Cool track",
+        trackViewUrl:"some URL2"
+      })
+    },
+    false
+  );
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+}
+
+
+function addItem(item){
+      // a 'lil hack to get higher quality album covers
     albumCover = item.artworkUrl100;
     albumCover = albumCover.replace("100x100", "300x300");
 
@@ -35,29 +68,4 @@ const displayResults = data => {
     div.appendChild(text);
     div.appendChild(a);
     document.getElementById("output").appendChild(div);
-  });
-};
-
-// attach event handlers and make function call:
-document.getElementById("search").onclick = search;
-search();
-
-// upload your own cover art:
-
-function previewFile() {
-  var preview = document.querySelector("img");
-  var file = document.querySelector("input[type=file]").files[0];
-  var reader = new FileReader();
-
-  reader.addEventListener(
-    "load",
-    function() {
-      preview.src = reader.result;
-    },
-    false
-  );
-
-  if (file) {
-    reader.readAsDataURL(file);
-  }
 }
