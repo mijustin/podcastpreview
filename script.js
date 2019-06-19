@@ -1,7 +1,8 @@
+var list;
 const search = () => {
   const term = document.getElementById("term").value;
   const url =
-    "https://itunes.apple.com/search?entity=podcast&limit=9&term=" + term;
+    "https://itunes.apple.com/search?entity=podcast&limit=7&term=" + term;
   fetch(url)
     .then(function(response) {
       return response.json();
@@ -29,15 +30,20 @@ function previewFile() {
   var title = document.querySelector("input#title").value;
   var reader = new FileReader();
 
+  var randomIndex = Math.floor(Math.random() * list.length + 1);
+
   reader.addEventListener(
     "load",
     () => {
-      addItem({
-        albumCover: reader.result,
-        artworkUrl100: reader.result,
-        trackName: title,
-        trackViewUrl: "some URL2"
-      });
+      addItem(
+        {
+          albumCover: reader.result,
+          artworkUrl100: reader.result,
+          trackName: title,
+          trackViewUrl: "some URL2"
+        },
+        randomIndex
+      );
     },
     false
   );
@@ -47,7 +53,7 @@ function previewFile() {
   }
 }
 
-function addItem(item) {
+function addItem(item, index) {
   // a 'lil hack to get higher quality album covers
   albumCover = item.artworkUrl100;
   albumCover = albumCover.replace("100x100", "300x300");
@@ -67,5 +73,10 @@ function addItem(item) {
   a.appendChild(img);
   div.appendChild(text);
   div.appendChild(a);
-  document.getElementById("output").prepend(div);
+  if (!isNaN(parseInt(index))) {
+    document.getElementById("output").insertBefore(div, list[index]);
+  } else {
+    document.getElementById("output").prepend(div);
+  }
+  list = document.getElementById("output").children;
 }
