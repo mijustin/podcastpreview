@@ -24,8 +24,8 @@ search();
 // upload your own cover art:
 
 function previewFile() {
-  var preview = document.querySelector("img");
   var file = document.querySelector("input[type=file]").files[0];
+  var title = document.querySelector("input#title").value;
   var reader = new FileReader();
 
   reader.addEventListener(
@@ -33,10 +33,10 @@ function previewFile() {
     () => {
       addItem({
         albumCover: reader.result,
-        artworkUrl100:  reader.result,
-        trackName: "Cool track",
-        trackViewUrl:"some URL2"
-      })
+        artworkUrl100: reader.result,
+        trackName: title,
+        trackViewUrl: "some URL2"
+      });
     },
     false
   );
@@ -46,26 +46,25 @@ function previewFile() {
   }
 }
 
+function addItem(item) {
+  // a 'lil hack to get higher quality album covers
+  albumCover = item.artworkUrl100;
+  albumCover = albumCover.replace("100x100", "300x300");
 
-function addItem(item){
-      // a 'lil hack to get higher quality album covers
-    albumCover = item.artworkUrl100;
-    albumCover = albumCover.replace("100x100", "300x300");
+  // create elements:
+  const div = document.createElement("div");
+  const img = document.createElement("img");
+  const a = document.createElement("a");
+  const text = document.createTextNode(item.trackName);
 
-    // create elements:
-    const div = document.createElement("div");
-    const img = document.createElement("img");
-    const a = document.createElement("a");
-    const text = document.createTextNode(item.trackName);
+  // bind with data:
+  img.setAttribute("src", albumCover);
+  a.setAttribute("href", item.trackViewUrl);
+  a.setAttribute("target", "_blank");
 
-    // bind with data:
-    img.setAttribute("src", albumCover);
-    a.setAttribute("href", item.trackViewUrl);
-    a.setAttribute("target", "_blank");
-
-    // nest and connect elements to document:
-    a.appendChild(img);
-    div.appendChild(text);
-    div.appendChild(a);
-    document.getElementById("output").appendChild(div);
+  // nest and connect elements to document:
+  a.appendChild(img);
+  div.appendChild(text);
+  div.appendChild(a);
+  document.getElementById("output").prepend(div);
 }
