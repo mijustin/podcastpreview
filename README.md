@@ -9,6 +9,8 @@ https://codepen.io/asraven/pen/JGrZgm
 
 Stuff we've used so far:
 
+https://codepen.io/vanwars/pen/XjYgxp
+
 https://codepen.io/bhajti/pen/MwzJQL
 
 https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL
