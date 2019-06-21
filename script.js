@@ -2,7 +2,7 @@ var list;
 const search = () => {
   const term = document.getElementById("term").value;
   const url =
-    "https://itunes.apple.com/search?entity=podcast&limit=7&term=" + term;
+    "https://itunes.apple.com/search?entity=podcast&limit=9&term=" + term;
   fetch(url)
     .then(function(response) {
       return response.json();
@@ -71,8 +71,8 @@ function addItem(item, index) {
 
   // nest and connect elements to document:
   a.appendChild(img);
-  div.appendChild(text);
   div.appendChild(a);
+  div.appendChild(text);
   if (!isNaN(parseInt(index))) {
     document.getElementById("output").insertBefore(div, list[index]);
   } else {
