@@ -1,4 +1,5 @@
 var list;
+var fetchedData;
 const search = () => {
   const term = document.getElementById("term").value;
   const url =
@@ -8,6 +9,7 @@ const search = () => {
       return response.json();
     })
     .then(function(data) {
+      fetchedData = data;
       displayResults(data);
     });
 };
@@ -26,6 +28,8 @@ search();
 // upload your own cover art:
 
 function previewFile() {
+  displayResults(fetchedData);  // recreate the original grid
+  
   var file = document.querySelector("input[type=file]").files[0];
   var title = document.querySelector("input#title").value;
   var reader = new FileReader();
